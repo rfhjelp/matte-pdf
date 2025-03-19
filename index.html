@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matematikk PDF-filer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #fff;
+        }
+
+        .pdf-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .pdf-item {
+            background: #2a2a2a;
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .pdf-item:hover {
+            transform: translateX(5px);
+        }
+
+        .pdf-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .open-btn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .download-btn {
+            background: #2196F3;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Matematikk PDF-filer</h1>
+        <div class="pdf-list" id="pdfList"></div>
+    </div>
+
+    <script>
+        // Add your PDFs here
+        const pdfs = [
+            { displayName: "Andregradsfunksjoner - informasjon", fileName: "andregradsfunksjoner.pdf" },
+            { displayName: "Eksponentialfunksjoner - informasjon og oppgaver", fileName: "eksponentialfunksjoner.pdf" },
+            { displayName: "Algebra teori 1 (halvveis ferdig)", fileName: "algebra_teori_1nc.pdf" }
+        ];
+
+        // Function to generate PDF list
+        function generatePDFList() {
+            const pdfList = document.getElementById('pdfList');
+            pdfList.innerHTML = '';
+
+            pdfs.forEach(pdf => {
+                const pdfElement = document.createElement('div');
+                pdfElement.className = 'pdf-item';
+                pdfElement.innerHTML = `
+                    <span>${pdf.displayName}</span>
+                    <div class="pdf-actions">
+                        <button class="open-btn" onclick="openPDF('${pdf.fileName}')">Åpne</button>
+                        <button class="download-btn" onclick="downloadPDF('${pdf.fileName}')">Last ned</button>
+                    </div>
+                `;
+                pdfList.appendChild(pdfElement);
+            });
+        }
+
+        // PDF handling functions
+        function openPDF(filename) {
+            window.open(`pdfs/${filename}`, '_blank');
+        }
+
+        function downloadPDF(filename) {
+            const link = document.createElement('a');
+            link.href = `pdfs/${filename}`;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Initialize the list
+        generatePDFList();
+    </script>
+</body>
+</html>
